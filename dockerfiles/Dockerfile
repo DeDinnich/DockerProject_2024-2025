@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-# Installer les dépendances de base
+# Installer les dépendances nécessaires
 RUN apt-get update && apt-get install -y \
     curl \
     zip \
@@ -13,13 +13,6 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
-
-# Installer Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Installer les dépendances Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs
 
 # Configurer le dossier de travail
 WORKDIR /var/www/html
